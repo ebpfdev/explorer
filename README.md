@@ -37,6 +37,9 @@ Attaching 1 probe...
 Once you run it, list will be automatically updated:
 
 ![A list of maps containing two new maps](docs/pics/01-list-with-bpftrace.png)
+
+`...`
+
 ![A list of programs with the new sys_exit_read](docs/pics/02-list-with-sys_exit_read.png)
 
 Let's examine the `sys_exit_read` program:
