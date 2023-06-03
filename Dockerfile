@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-ARG AGENT_VERSION=main
-ARG UI_VERSION=main
+ARG AGENT_VERSION=v0.0.2
+ARG UI_VERSION=v0.0.1
 
 FROM ghcr.io/ebpfdev/explorer-ui:$UI_VERSION AS ui
 
@@ -14,18 +14,9 @@ COPY --from=ui /usr/share/nginx/html /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY <<EOF /start.sh
-#!/bin/bash
-echo '{"agent_url": "/dev-agent"}' > /usr/share/nginx/html/config.json
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-nginx &
-/app/dev-agent server --skip-welcome --path-prefix /dev-agent/ &
-wait -n
-exit $?
-EOF
-
-RUN chmod +x /start.sh
-
-CMD ["/start.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 

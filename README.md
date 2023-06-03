@@ -2,7 +2,7 @@
 
 eBPF is a web application that lets you explore eBPF subsystem of your Linux host.
 
-Explorer consists of two parts: an agent with GraphQL API and a web interface.
+Explorer consists of two parts: an agent with GraphQL API, Prometheus scrape endpoint, and a web interface.
 It is currently shipped as a single container. But you can also run them separately.
 
 * [ebpfdev/dev-agent](https://github.com/ebpfdev/dev-agent), MIT license
@@ -13,12 +13,23 @@ It is currently shipped as a single container. But you can also run them separat
 Docker image should be run with `--privileged` flag to allow it to access eBPF subsystem.
 
 ```shell
-docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:main
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.2
+```
+
+Use `--etm` option to expose map (with name `AT_SYSCALLNUM`) entries values to Prometheus endpoint:
+```shell
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.2 --etm -:AT_SYSCALLNUM:string
+```
+
+If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
+```shell
+docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.2 server
 ```
 
 Links:
 * [http://localhost:8070](http://localhost:8070) - web interface
 * [http://localhost:8070/dev-agent](http://localhost:8070/dev-agent) - Agent's GraphQL web client
+* [http://localhost:8070/dev-agent/metrics](http://localhost:8070/dev-agent/metrics) - Prometheus scrape endpoint
 
 # Demo
 
