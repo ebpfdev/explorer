@@ -13,17 +13,17 @@ It is currently shipped as a single container. But you can also run them separat
 Docker image should be run with `--privileged` flag to allow it to access eBPF subsystem.
 
 ```shell
-docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.2
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.3
 ```
 
 Use `--etm` option to expose map (with name `AT_SYSCALLNUM`) entries values to Prometheus endpoint:
 ```shell
-docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.2 --etm -:AT_SYSCALLNUM:string
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.3 --etm -:AT_SYSCALLNUM:string
 ```
 
 If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
 ```shell
-docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.2 server
+docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.3 server
 ```
 
 Links:
