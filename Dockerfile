@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG AGENT_VERSION=v0.0.2
-ARG UI_VERSION=v0.0.1
+ARG UI_VERSION=v0.0.2
 
 FROM ghcr.io/ebpfdev/explorer-ui:$UI_VERSION AS ui
 
