@@ -23,7 +23,7 @@ docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.4 --et
 
 If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
 ```shell
-docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.4 server
+docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.2 server
 ```
 
 Links:
