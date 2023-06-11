@@ -16,7 +16,7 @@ Docker image should be run with `--privileged` flag to allow it to access eBPF s
 docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5
 ```
 
-Use `--etm` option to expose map (with name `AT_SYSCALLNUM`) entries values to Prometheus endpoint:
+Use `--etm` option to expose map (with name `AT_`) entries values to Prometheus endpoint:
 ```shell
 docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5 --etm -:AT_:string
 ```
