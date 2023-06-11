@@ -13,17 +13,17 @@ It is currently shipped as a single container. But you can also run them separat
 Docker image should be run with `--privileged` flag to allow it to access eBPF subsystem.
 
 ```shell
-docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.4
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5
 ```
 
 Use `--etm` option to expose map (with name `AT_SYSCALLNUM`) entries values to Prometheus endpoint:
 ```shell
-docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.4 --etm -:AT_:string
+docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5 --etm -:AT_:string
 ```
 
 If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
 ```shell
-docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.4 server
+docker run -ti --rm --privileged -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.3 server
 ```
 
 Links:
@@ -124,12 +124,12 @@ devagent_ebpf_prog_run_time{id="127",name="",tag="3918c82a5f4c0360",type="CGroup
 By default, metrics `devagent_ebpf_map_entry_count` and `devagent_ebpf_map_entry_value` are disabled.
 To enable them for some of the maps (Array or Hash types), use `--etm option`, for the demo above:
 ```shell
-% docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.4 --etm -:AT_:string
+% docker run -ti --rm --privileged -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5 --etm -:AT_:string
 ```
 
 Run with `--help` to see details of this option:
 ```shell
-% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.4 --help               
+% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.5 --help               
 
   (edited)
 
