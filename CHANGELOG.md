@@ -1,3 +1,17 @@
+13 june 2023, map editing and pinning
+---
+
+Explorer v0.0.6
+
+* map entries table is now editable (experimental, only editing existing values in any available representation)
+* displaying paths of pinned maps (if bpffs is available):
+  ![pins list](docs/pics/X_004RN_pins.png)
+* map pinning is available via GraphQL query
+
+Sub-releases:
+* **dev-agent** [v0.0.4](https://github.com/ebpfdev/dev-agent/blob/main/CHANGELOG.md#v004--13-june-2023--map-editing-and-pinning)
+* **explorer-ui** [v0.0.4](https://github.com/ebpfdev/explorer-ui/blob/main/CHANGELOG.md#v004--13-june-2023--map-editor-and-map-pins)
+
 11 june 2023, more connections
 ---
 
