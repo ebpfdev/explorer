@@ -8,25 +8,62 @@ It is currently shipped as a single container. But you can also run them separat
 * [ebpfdev/dev-agent](https://github.com/ebpfdev/dev-agent), MIT license
 * [ebpfdev/explorer-ui](https://github.com/ebpfdev/explorer-ui), MIT license
 
+## Features
+
+* view all maps and programs
+* view graph of interconnected maps and programs
+* view program's tracepoints/kprobe
+* map entries table (Hash, HashPerCPU, Array, ArrayPerCPU)
+  * view and edit in number/hex/string formats
+* expose map entries as metrics for prometheus (also other useful metrics)
+
+![map editor demo gif](docs/pics/X_004RN_mapedit.gif)
+
 ## Usage
 
-Docker image should be run additional privileges to enable access to all features:
-
-* `--cap-add CAP_SYS_ADMIN` is needed for access BPF maps and programs (CAP_BPF is not yet enough)
-* `--pid=host` is needed to determine tracepoint/kprobe attachment.
+Run explorer as a container:
 
 ```shell
-docker run -ti --rm --cap-add CAP_SYS_ADMIN --pid=host -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5
+docker run -ti --rm -p 8070:80 \
+  --cap-add CAP_SYS_ADMIN --pid=host \
+  -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
+  ghcr.io/ebpfdev/explorer:v0.0.6
 ```
+
+Privileges breakdown:
+
+* `--cap-add CAP_SYS_ADMIN` (**required**)
+
+  is needed for access BPF maps and programs (CAP_BPF is not yet enough)
+
+* `--pid=host` (_optional_)
+
+  is needed to determine tracepoint/kprobe attachment
+
+* `-e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf` (_optional_)
+  
+  is needed to determine paths of pinned maps, it is better to keep BPF_DIR (and target mount path)
+  the same as your original eBPF FS, which can be determined with the following command:
+  ```shell
+  $ mount | grep bpf
+  bpf on /sys/fs/bpf type bpf
+  ```
+
 
 Use `--etm` option to expose map (with name `AT_`) entries values to Prometheus endpoint:
 ```shell
-docker run -ti --rm --cap-add CAP_SYS_ADMIN --pid=host -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5 --etm -:AT_:string
+docker run -ti --rm -p 8070:80 \
+  --cap-add CAP_SYS_ADMIN --pid=host \
+  -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
+  ghcr.io/ebpfdev/explorer:v0.0.6 --etm -:AT_:string
 ```
 
 If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
 ```shell
-docker run -ti --rm --cap-add CAP_SYS_ADMIN --pid=host -p 8080:8080 ghcr.io/ebpfdev/dev-agent:v0.0.3 server
+docker run -ti --rm -p 8080:8080 \
+  --cap-add CAP_SYS_ADMIN --pid=host \
+  -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
+  ghcr.io/ebpfdev/dev-agent:v0.0.4 server
 ```
 
 Links:
@@ -127,12 +164,15 @@ devagent_ebpf_prog_run_time{id="127",name="",tag="3918c82a5f4c0360",type="CGroup
 By default, metrics `devagent_ebpf_map_entry_count` and `devagent_ebpf_map_entry_value` are disabled.
 To enable them for some of the maps (Array or Hash types), use `--etm option`, for the demo above:
 ```shell
-% docker run -ti --rm --cap-add CAP_SYS_ADMIN --pid=host -p 8070:80 ghcr.io/ebpfdev/explorer:v0.0.5 --etm -:AT_:string
+docker run -ti --rm -p 8070:80 \
+  --cap-add CAP_SYS_ADMIN --pid=host \
+  -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
+  ghcr.io/ebpfdev/explorer:v0.0.6 --etm -:AT_:string
 ```
 
 Run with `--help` to see details of this option:
 ```shell
-% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.5 --help               
+% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.6 --help               
 
   (edited)
 
