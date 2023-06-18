@@ -1,3 +1,15 @@
+18 june, add and delete map entries
+---
+
+Explorer v0.0.7
+
+* add and delete map entries
+* number length validation on entry submit
+
+Sub-releases:
+* **dev-agent** [v0.0.5](https://github.com/ebpfdev/dev-agent/blob/main/CHANGELOG.md#v005--18-june-2023--add-and-delete-map-entries)
+* **explorer-ui** [v0.0.6](https://github.com/ebpfdev/explorer-ui/blob/main/CHANGELOG.md#v006--18-june-2023--add-and-delete-map-entries)
+
 13 june 2023, map editing and pinning
 ---
 
