@@ -27,7 +27,7 @@ Run explorer as a container:
 docker run -ti --rm -p 8070:80 \
   --cap-add CAP_SYS_ADMIN --pid=host \
   -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
-  ghcr.io/ebpfdev/explorer:v0.0.6
+  ghcr.io/ebpfdev/explorer:v0.0.7
 ```
 
 Privileges breakdown:
@@ -55,7 +55,7 @@ Use `--etm` option to expose map (with name `AT_`) entries values to Prometheus 
 docker run -ti --rm -p 8070:80 \
   --cap-add CAP_SYS_ADMIN --pid=host \
   -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
-  ghcr.io/ebpfdev/explorer:v0.0.6 --etm -:AT_:string
+  ghcr.io/ebpfdev/explorer:v0.0.7 --etm -:AT_:string
 ```
 
 If you only need GraphQL / Prometheus without web interface, you can run [agent](https://github.com/ebpfdev/dev-agent) independently:
@@ -63,7 +63,7 @@ If you only need GraphQL / Prometheus without web interface, you can run [agent]
 docker run -ti --rm -p 8080:8080 \
   --cap-add CAP_SYS_ADMIN --pid=host \
   -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
-  ghcr.io/ebpfdev/dev-agent:v0.0.4 server
+  ghcr.io/ebpfdev/dev-agent:v0.0.5 server
 ```
 
 Links:
@@ -167,12 +167,12 @@ To enable them for some of the maps (Array or Hash types), use `--etm option`, f
 docker run -ti --rm -p 8070:80 \
   --cap-add CAP_SYS_ADMIN --pid=host \
   -e BPF_DIR=/sys/fs/bpf -v /sys/fs/bpf:/sys/fs/bpf \
-  ghcr.io/ebpfdev/explorer:v0.0.6 --etm -:AT_:string
+  ghcr.io/ebpfdev/explorer:v0.0.7 --etm -:AT_:string
 ```
 
 Run with `--help` to see details of this option:
 ```shell
-% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.6 --help               
+% docker run -ti --rm ghcr.io/ebpfdev/explorer:v0.0.7 --help               
 
   (edited)
 
